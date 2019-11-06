@@ -35,10 +35,10 @@ myLatLng[1] = {lat: 59.310939, lng: 18.015303};
 var initialize = function() {
   var locataionicon = 'positive.png'
 
-  map  = new google.maps.Map(document.getElementById('map-canvas'), {center:{lat:lat,lng:lng},zoom:14});
+  map  = new google.maps.Map(document.getElementById('map-canvas'), {center:{lat:window.lat,lng:window.lng},zoom:18});
   yourPosition = new google.maps.Marker({position:{lat:lat, lng:lng}, map:map, icon:locataionicon});
 
-  var url = 'question1';
+  var url = 'question1.html';
 
   //Adds markers to map
   var marker = new google.maps.Marker({position: myLatLng[0], map: map, title: 'Fråga 1', label: '1'});
