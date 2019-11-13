@@ -1,19 +1,44 @@
+
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <title>Tipsrundan Dev</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.19.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="main.css"/>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
-
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>🌏 Tipsrundan Dev</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
-      <div id="map-canvas"></div>
+    <main class="container">
+        <div id="splash">
+          <h1 class="splash-header">Tipsrundan</h1>
+          
+          <form id="quizSelecter">
+              <h2>Välj runda:</h2>
+            <input type="radio" name="quiz" value="1"> Liljeholmen<br>
+            <input type="radio" name="quiz" value="2"> Hammarby Sjöstad<br>
+            <input type="radio" name="quiz" value="3"> Knivsöder<br> 
+            <h2>Ange E-mail:</h2> 
+            <input type="email" name="email"><br>
+            <input type="button" id="submitQuizButton" value="Starta">
+            </form>
+        </div>
+        <div id="quizdiv" class="quiz-container">
+            
+            <button id="next">Svara</button>
+            <button id="submit">Svara & Avsluta</button>
+            <div id="quiz"></div>
+          </div>
 
-    <script type="text/javascript" src="maps.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyARMF4W1Bl6IOFzH0B-DwJqgCLNSPj5OG0&callback=initialize"></script>
+          <div id="results"></div>
+          
+      <div id="map" class="map"></div>
+      <p id="info" class="info"></p>
+    </main>
+
+    <script src="quiz.js"></script>
+    <script src="maps.js"></script>
+    
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARMF4W1Bl6IOFzH0B-DwJqgCLNSPj5OG0&callback=init"></script>
   </body>
 </html>
