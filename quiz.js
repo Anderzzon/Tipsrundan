@@ -66,12 +66,12 @@
       var numCorrect = 0;
 
   function buildQuiz() {
-    // we'll need a place to store the HTML output
+    // Store the HTML output in an arrey
     const output = [];
 
     // for each question...
     myQuestions.forEach((currentQuestion, questionNumber) => {
-      // we'll want to store the list of answer choices
+      // Arrey with list of answers
       const answers = [];
 
       // and for each available answer...

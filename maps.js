@@ -4,6 +4,7 @@
  * @param {number} lng
  * @return {Object}
  */
+
 const createMap = ({ lat, lng }) => {
   return new google.maps.Map(document.getElementById('map'), {
     center: { lat, lng },
@@ -13,7 +14,7 @@ const createMap = ({ lat, lng }) => {
   });
 };
 
-var locataionicon = 'positive.png'
+const locataionicon = 'positive.png'
 
 /**
  * Create google maps Marker instance.
@@ -86,14 +87,21 @@ function init() {
   //Create markers and loop through the arrey
   var marker, circleMarkers, i;
 
+  //Create bounds of circles
+  /*google.maps.Circle.prototype.contains = function(latLng) {
+    return this.getBounds().contains(latLng) && google.maps.geometry.spherical.computeDistanceBetween(this.getCenter(), latLng) <= this.getRadius();
+  }*/
+
 for (i = 0; i < myQuestions.length; i++) {
 
   if(myQuestions[i].answered === false) {
    marker = new google.maps.Marker({
-   position: new google.maps.LatLng(myQuestions[i].center.lat, myQuestions[i].center.lng),
+   position: new google.maps.LatLng(myQuestions[i].center),
+   //position: new google.maps.LatLng(myQuestions[i].center.lat, myQuestions[i].center.lng),
    map: map,
    label: i+1+""
   });
+
     //Create circles
     circleMarkers = new google.maps.Circle({
     center:new google.maps.LatLng(myQuestions[i].center),
@@ -112,19 +120,24 @@ for (i = 0; i < myQuestions.length; i++) {
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
    return function() {
      //infowindow.setContent(locations[i][0]);
-     infowindow.open(map, marker);
+     //infowindow.open(map, marker);
+
      showSlide(i);
      //window.location.href = this.url;
      myQuestions[i].answered = true
-     marker.setMap(null);
+     //marker.setMap(null);
      document.getElementById("quizdiv").style.display="block";
 
      console.log(myQuestions[i].answered); //bugtesting
    }
  })(marker, i));
 
-    }
-
+ var nyc = new google.maps.LatLng(myQuestions[i].center);
+ var london = new google.maps.LatLng(markerx);
+ var distance = google.maps.geometry.spherical.computeDistanceBetween(london, nyc);
+ console.log(distance)
+}
+    
 //Keep track of the users location
   let watchId = trackLocation({
     onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
