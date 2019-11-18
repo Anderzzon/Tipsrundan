@@ -14,12 +14,12 @@ const createMap = ({ lat, lng }) => {
   });
 };
 
-const locataionicon = 'positive.png' //icon for player
-var myCoords; //veriable for players position to be used in other functions
-var myLat; //variable to be used in myCoords
-var myLng; //variable to be used in myCoords
-var quizCoords; //veriable to be set fot the coordinate of the question the player wants to answer
-var distance; // distance between player and the question
+const locataionicon = 'positive.png' // Icon for player
+var myCoords; // Veriable for players position to be used in other functions
+var myLat; // Variable to be used in myCoords
+var myLng; // Variable to be used in myCoords
+var quizCoords; // Variable to be set fot the coordinate of the question the player wants to answer
+var distance; // Distance between player and the question
 
 /**
  * Create google maps Marker instance.
@@ -83,7 +83,7 @@ function init() {
   
   var infowindow = new google.maps.InfoWindow();
 
-  //Create markers and loop through the arrey
+  // Create markers and loop through the arrey
   var marker, circleMarkers, i;
 
 for (i = 0; i < myQuestions.length; i++) {
@@ -91,12 +91,11 @@ for (i = 0; i < myQuestions.length; i++) {
   if(myQuestions[i].answered === false) {
    marker = new google.maps.Marker({
    position: new google.maps.LatLng(myQuestions[i].center),
-   //position: new google.maps.LatLng(myQuestions[i].center.lat, myQuestions[i].center.lng),
    map: map,
    label: i+1+""
   });
 
-    //Create circles to show where you have to be within to answer question
+    // Create circles to show where you have to be within to answer question
     circleMarkers = new google.maps.Circle({
     center:new google.maps.LatLng(myQuestions[i].center),
     radius:20,
@@ -113,38 +112,24 @@ for (i = 0; i < myQuestions.length; i++) {
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
    return function() {
-     //infowindow.setContent(locations[i][0]);
-     //infowindow.open(map, marker);
-    
-
-     //window.location.href = this.url;
-
-     //on click, set coordinates for the question to the veriable quizCoords:
+     // On click, set coordinates for the question to the veriable quizCoords:
      quizCoords = new google.maps.LatLng(myQuestions[i].center);
-     //on click, check distance between the question and the player:
+     // On click, check distance between the question and the player:
      distance = google.maps.geometry.spherical.computeDistanceBetween(myCoords, quizCoords);
      console.log(distance); //bugtesting
 
-     //if distance is within 20 meters, show the question, hide the marker and set the question to answered:
+     // If distance is within 20 meters, show the question, hide the marker and set the question to answered:
      if (distance<20) {
-     //show the right question
-     showSlide(i);
-     document.getElementById("quizdiv").style.display="block";
-
-     myQuestions[i].answered = true;
-     marker.setMap(null);
-
-     console.log(myQuestions[i].answered); //bugtesting
+      showSlide(i);
+      document.getElementById("quizdiv").style.display="block";
+      myQuestions[i].answered = true;
+      marker.setMap(null);
     }
    }
  })(marker, i));
- //bugtesting:
- //console.log(distance);
- //console.log("NYC " + quizCoords);
- //console.log("London " + myCoords);
 }
 
-//Keep track of the players location and update players location when the players position is changed:
+// Keep track of the players location and update players location when the players position is changed:
   const watchId = trackLocation({
     onSuccess: ({ coords: { latitude: lat, longitude: lng } }) => {
       myPosition.setPosition({ lat, lng });
@@ -154,8 +139,7 @@ for (i = 0; i < myQuestions.length; i++) {
       myLat = lat;
       myLng = lng;
       myCoords = new google.maps.LatLng(myLat, myLng);
-      //console.log(myLat);
-      //console.log(myLng);
+
     },
     onError: err => {
       console.log($info);
@@ -163,15 +147,5 @@ for (i = 0; i < myQuestions.length; i++) {
       $info.classList.add('error');
     }
   });
-  /*
-  Buggtesting:
-  const interval = setInterval(function() {
-      console.log(myLat);
-      console.log(myLng);
-      console.log("London" + london);
-      console.log(distance);
-  }, 5000);
-  */
 
 }
-

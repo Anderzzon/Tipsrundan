@@ -62,14 +62,14 @@
     }
   ];
 
-      // keep track of user's answers
+      // Keep track of user's answers
       var numCorrect = 0;
 
   function buildQuiz() {
     // Store the HTML output in an arrey
     const output = [];
 
-    // for each question...
+    // For each question...
     myQuestions.forEach((currentQuestion, questionNumber) => {
       // Arrey with list of answers
       const answers = [];
@@ -86,47 +86,45 @@
         );
       }
 
-      // add this question and its answers to the output
+      // Add this question and its answers to the output
       output.push(
         `<div class="slide">
            <div class="question"> ${currentQuestion.question} </div>
            <div class="answers"> ${answers.join("")} </div>
          </div>`
       );
-      
     });
 
-    // finally combine our output list into one string of HTML and put it on the page
+    // Combine our output list into one string of HTML and put it on the page
     quizContainer.innerHTML = output.join("");
-
   }
 
   function showResults() {
-    // gather answer containers from our quiz
+    // Gather answer containers from quiz
     const answerContainers = quizContainer.querySelectorAll(".answers");
 
-    // for each question...
+    // For each question
     myQuestions.forEach((currentQuestion, questionNumber) => {
-      // find selected answer
+      // Find selected answer
       const answerContainer = answerContainers[questionNumber];
       const selector = `input[name=question${questionNumber}]:checked`;
       const userAnswer = (answerContainer.querySelector(selector) || {}).value;
 
-      // if answer is correct
+      // If answer is correct
       if (userAnswer === currentQuestion.correctAnswer) {
-        // add to the number of correct answers
+        // Add to the number of correct answers
         numCorrect++;
 
-        // color the answers green
+        // Color the answers green
         answerContainers[questionNumber].style.color = "lightgreen";
       } else {
-        // if answer is wrong or blank
-        // color the answers red
+        // If answer is wrong or blank
+        // Color the answers red
         answerContainers[questionNumber].style.color = "red";
       }
     });
 
-    // show number of correct answers out of total
+    // Show number of correct answers out of total
     resultsContainer.innerHTML = `${numCorrect} rätt av ${myQuestions.length}`;
   }
 
@@ -134,14 +132,6 @@
     slides[currentSlide].classList.remove("active-slide");
     slides[n].classList.add("active-slide");
     currentSlide = n;
-    
-    /*
-    if (currentSlide === 0) {
-      previousButton.style.display = "none";
-    } else {
-      previousButton.style.display = "inline-block";
-    }
-    */
     
     if (currentSlide === slides.length - 1) {
       nextButton.style.display = "none";
@@ -166,21 +156,18 @@
   // Create quiz
   buildQuiz();
 
-  //const previousButton = document.getElementById("previous");
+  // Const previousButton = document.getElementById("previous");
   const nextButton = document.getElementById("next");
   const slides = document.querySelectorAll(".slide");
   let currentSlide = 0;
 
   
 
-  // on submit, show results
+  // On submit, show results
   submitButton.addEventListener("click", showResults);
-  //previousButton.addEventListener("click", showPreviousSlide);
   nextButton.addEventListener("click", showNextSlide); 
-
+  // Hide question when answered
   nextButton.addEventListener('click', function() { document.getElementById("quizdiv").style.display="none" });
+
   submitButton.addEventListener("click", function() { document.getElementById("quiz").style.display="none" });
   submitButton.addEventListener("click", function() { document.getElementById("submit").style.display="none" });
-
-
-  submitSplash.addEventListener("click", function() { document.getElementById("splash").style.display="none"})
